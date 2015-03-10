@@ -1,0 +1,24 @@
+{
+  "name": "TimeTracker",
+  "version": "1.0.0",
+  "description": "Keep track of time worked",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "Ryan Blanks",
+  "license": "ISC",
+  "dependencies": {
+    "connect-flash": "^0.1.1",
+    "express": "^4.10.6",
+    "express-session": "^1.10.1",
+    "mongodb": "^1.4.22",
+    "vash": "^0.7.12-1"
+  },
+  "devDependencies": {
+    "browser-sync": "^2.2.2",
+    "gulp": "^3.8.10",
+    "gulp-nodemon": "^1.0.4"
+  }
+}
