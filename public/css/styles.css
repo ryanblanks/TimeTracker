@@ -1,13 +1,13 @@
-.tasks{
+/*.tasks{
   max-width: 350px;
   margin: auto;
-}
-.noBottomPadding{
+}*/
+/*.noBottomPadding{
   padding-bottom: 0px;
-}
+}*/
 .green{
 	color: rgb(45, 180, 65);
 }
 .runningTaskBackground{
-	  background-color: floralwhite;
+	  background-color: yellow;
 }
