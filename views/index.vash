@@ -9,7 +9,7 @@
       </md-toolbar>
       <md-content layout="column">
         <md-list layout="column">
-          <md-item ng-repeat="task in tasks" ng-init="inEdit = false">
+          <md-item ng-repeat="task in tasks" ng-init="initTaskEdits()">
             <md-item-content ng-class="{runningTaskBackground: task.running}">
               <div class="md-tile-content">
                 <div layout="row" layout-align="space-between center">
@@ -18,10 +18,10 @@
                     <md-input-container class="noBottomPadding" ng-show="inEdit">
                       <input ng-model="task.task" show-focus="inEdit" ng-blur="saveEdit()" />
                     </md-input-container>
-                    <h4 ng-show="task.running" ng-init="inEditStart = false" ng-repeat="tracker in openTrackers">
-                    	<span ng-hide="inEditStart" ng-click="startEditStart()">{{tracker.start | date:"h:mma"}}</span>
+                    <h4 ng-show="task.running">
+                    	<span ng-hide="inEditStart" ng-click="startEditStart()">{{task.tracker.start | date:"h:mma"}}</span>
                     	<md-input-container class="noBottomPadding" ng-show="inEditStart">
-	                      <input ng-model="editStart" show-focus="inEditStart" ng-blur="saveEditStart(openTrackers)" />
+	                      <input ng-model="editStart" show-focus="inEditStart" ng-blur="saveEditStart(true)" />
 	                    </md-input-container>
                     	- <span class="green">{{runningElapsedTime}}</span>
                     </h4>
@@ -70,7 +70,7 @@
                     <h4>
                     	<span ng-hide="inEditStart" ng-click="startEditStart()">{{tracker.start | date:"h:mma"}}</span>
 	                    <md-input-container class="noBottomPadding" ng-show="inEditStart">
-	                      <input ng-model="editStart" show-focus="inEditStart" ng-blur="saveEditStart(trackers)" />
+	                      <input ng-model="editStart" show-focus="inEditStart" ng-blur="saveEditStart()" />
 	                    </md-input-container>
                     	 to
                     	<span ng-hide="inEditEnd" ng-click="startEditEnd()">{{tracker.end | date:"h:mma"}}</span>
