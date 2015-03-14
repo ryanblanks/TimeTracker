@@ -1,14 +1,13 @@
 @html.extend('layout', function (model) {
 	@html.block('body', function (model) {
-<div ng-controller="ttController">
-	<br />
-    <div  layout="column" class="md-whiteframe-z1 tasks">
+<div ng-controller="ttController" layout="row" layout-sm="column" layout-margin layout-fill>
+    <md-content flex layout="column" class="md-whiteframe-z1">
       <md-toolbar class="md-theme-light">
         <h1 class="md-toolbar-tools">
           <span>Tasks</span>
         </h1>
       </md-toolbar>
-      <md-content>
+      <md-content layout="column">
         <md-list layout="column">
           <md-item ng-repeat="task in tasks" ng-init="initTaskEdits()">
             <md-item-content ng-class="{runningTaskBackground: task.running}">
@@ -44,7 +43,7 @@
             <md-divider></md-divider>
           </md-item>
         </md-list>
-        <md-content class="md-padding" layout="row">
+        <md-content  class="md-padding" layout="row">
           <md-input-container class="noBottomPadding">
             <label>New Task</label>
             <input ng-model="addedTask" />
@@ -52,9 +51,8 @@
           <md-button ng-click="addTask()" flex="50" class="md-raised md-primary" aria-label="Start Timer">Add</md-button>
         </md-content>
       </md-content>
-    </div>
-    <br />
-    <div layout="column" class="tasks md-whiteframe-z1">
+    </md-content>
+    <md-content flex layout="column" class="md-whiteframe-z1">
       <md-toolbar class="md-theme-light">
         <h1 class="md-toolbar-tools">
           <span>Today&#39;s Tracked Time</span>
@@ -74,7 +72,7 @@
 	                    <md-input-container class="noBottomPadding" ng-show="inEditStart">
 	                      <input ng-model="editStart" show-focus="inEditStart" ng-blur="saveEditStart()" />
 	                    </md-input-container>
-                    	 to 
+                    	 to
                     	<span ng-hide="inEditEnd" ng-click="startEditEnd()">{{tracker.end | date:"h:mma"}}</span>
                     	<md-input-container class="noBottomPadding" ng-show="inEditEnd">
 	                      <input ng-model="editEnd" show-focus="inEditEnd" ng-blur="saveEditEnd()" />
@@ -94,8 +92,7 @@
           </md-item>
         </md-list>
       </md-content>
-    </div>
-    <br />
+    </md-content>
 </div>
 	})
 })
