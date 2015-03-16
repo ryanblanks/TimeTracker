@@ -4,9 +4,7 @@ tt.controller("ttController",
   function($scope, $firebase, $mdDialog, $interval, FBUrl) {
     var taskRef = new Firebase(FBUrl + "/Tasks");
     $scope.tasks = $firebase(taskRef).$asArray();
-    var today = new Date();
-    var yesterday = Date.create('yesterday');
-    initTrackers(today);
+    initTrackers(new Date());
 
     $scope.tasks.$loaded().then(function(list){
       for (i = 0; i < list.length; i++){
@@ -55,7 +53,13 @@ tt.controller("ttController",
     };
 
     $scope.saveEditStart = function (runningTracker){
-      var newStart = Date.create(moment(today).format('MM/DD/YYYY') + ' ' + this.editStart);
+      if (this.tracker) {
+        var newStart = Date.create(moment(this.tracker.start).format('MM/DD/YYYY') + ' ' + this.editStart);
+      }
+      else {
+        var newStart = Date.create(moment(this.task.tracker.start).format('MM/DD/YYYY') + ' ' + this.editStart);
+      }
+      console.log(newStart);
       if ( Object.prototype.toString.call(newStart) === "[object Date]" ) {
         if ( !isNaN( newStart.getTime() ) ) {
           if (this.tracker) {
@@ -77,7 +81,7 @@ tt.controller("ttController",
     };
 
     $scope.saveEditEnd = function (){
-      var newEnd = Date.create(moment(today).format('MM/DD/YYYY') + ' ' + this.editEnd);
+      var newEnd = Date.create(moment(this.tracker.end).format('MM/DD/YYYY') + ' ' + this.editEnd);
       if ( Object.prototype.toString.call(newEnd) === "[object Date]" ) {
         if ( !isNaN( newEnd.getTime() ) ) {
           this.tracker.end = newEnd.getTime();
@@ -126,6 +130,7 @@ tt.controller("ttController",
       $scope.runningTask = null;
       var targetDate = new Date(task.tracker.start);
       var targetDateString = moment(targetDate).format('MMDDYYYY');
+      console.log(targetDateString);
       var targetTrackers = $firebase(new Firebase(FBUrl + "/Trackers/"+targetDateString)).$asArray();
       var tracker = task.tracker;
       tracker.end = new Date().getTime();
@@ -199,7 +204,23 @@ tt.controller("ttController",
       }, function() {
         //don't delete
       });
-    };    
+    };
+
+    $scope.dateBack = function () {
+      var date = $scope.trackedDate;
+      date.addDays(-1);
+      initTrackers(date);
+    };
+
+    $scope.dateForward = function () {
+      var date = $scope.trackedDate;
+      date.addDays(1);
+      initTrackers(date);
+    };
+
+    $scope.dateToday = function () {
+      initTrackers(new Date());
+    };
 
     function initTrackers (date) {
       $scope.trackedDate = date;

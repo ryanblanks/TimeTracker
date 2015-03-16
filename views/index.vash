@@ -55,10 +55,16 @@
     </div>
     <br />
     <div layout="column" class="tasks md-whiteframe-z1">
-      <md-toolbar class="md-theme-light">
-        <h1 class="md-toolbar-tools">
-          <span>Today&#39;s Tracked Time</span>
-        </h1>
+      <md-toolbar class="md-theme-light" layout="column">
+        <div class="md-toolbar-tools">
+          <span>Tracked Time - {{trackedDate | date: "MM/dd/yyyy"}}</span>
+        </div>
+        <div layout="row" layout-align="space-between">
+          <span ng-click="dateBack()"><i class="fa fa-chevron-left"></i></span>
+          <span ng-click="dateToday()"><i class="fa fa-circle"></i></span>
+          <span><i class="fa fa-calendar"></i></span>
+          <span ng-click="dateForward()"><i class="fa fa-chevron-right"></i></span>
+        </div>
       </md-toolbar>
       <md-content>
       	<md-subheader class="md-primary">{{totalDayDuration()}}</md-subheader>
