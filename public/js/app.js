@@ -222,6 +222,12 @@ tt.controller("ttController",
       initTrackers(new Date());
     };
 
+    $scope.keyPressed = function (ev) {
+      if(ev.which === 13){
+        $scope.addTask();
+      }
+    };
+
     function initTrackers (date) {
       $scope.trackedDate = date;
       var dateString = moment(date).format('MMDDYYYY');

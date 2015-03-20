@@ -47,7 +47,7 @@
         <md-content class="md-padding" layout="row">
           <md-input-container class="noBottomPadding">
             <label>New Task</label>
-            <input ng-model="addedTask" />
+            <input ng-model="addedTask" ng-keypress="keyPressed($event)"/>
           </md-input-container>
           <md-button ng-click="addTask()" flex="50" class="md-raised md-primary" aria-label="Start Timer">Add</md-button>
         </md-content>
