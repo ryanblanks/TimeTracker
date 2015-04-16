@@ -1,9 +1,9 @@
 var tt = angular.module("TimeTracker", ["firebase", "ngMaterial", "TimeTracker.config"]);
 
 tt.controller("ttController",
-  function($scope, $firebase, $mdDialog, $interval, FBUrl) {
+  function($scope, $firebaseArray, $mdDialog, $interval, FBUrl) {
     var taskRef = new Firebase(FBUrl + "/Tasks");
-    $scope.tasks = $firebase(taskRef).$asArray();
+    $scope.tasks = $firebaseArray(taskRef);
     initTrackers(new Date());
 
     $scope.tasks.$loaded().then(function(list){
@@ -131,7 +131,7 @@ tt.controller("ttController",
       var targetDate = new Date(task.tracker.start);
       var targetDateString = moment(targetDate).format('MMDDYYYY');
       console.log(targetDateString);
-      var targetTrackers = $firebase(new Firebase(FBUrl + "/Trackers/"+targetDateString)).$asArray();
+      var targetTrackers = $firebaseArray(new Firebase(FBUrl + "/Trackers/"+targetDateString));
       var tracker = task.tracker;
       tracker.end = new Date().getTime();
       targetTrackers.$add(tracker);
@@ -232,7 +232,7 @@ tt.controller("ttController",
       $scope.trackedDate = date;
       var dateString = moment(date).format('MMDDYYYY');
       var trackerRef = new Firebase(FBUrl + "/Trackers/"+dateString);
-      $scope.trackers = $firebase(trackerRef).$asArray();
+      $scope.trackers = $firebaseArray(trackerRef);
     }
   }
 );
